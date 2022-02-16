@@ -43,11 +43,11 @@ class SingleTweetView(APIView):
 
     # Create a new tweet
     def post(self, request, format = None):
-        if request.data.get('tweet'):
+        if request.POST.get('tweet'):
             new_tweet = Tweet()
             new_tweet.user = request.user
             new_tweet.image = request.data.get('image_field')
-            new_tweet.text = request.data.get('tweet')
+            new_tweet.text = request.POST.get('tweet')
             new_tweet.save()
 
             response = {'tweet_id': new_tweet.id,
@@ -71,3 +71,49 @@ class SingleTweetView(APIView):
         responseData['status'] = 'Deleted'
 
         return HttpResponse(json.dumps(responseData), content_type='application/json')
+
+
+class HomePageView(APIView):
+
+    authentication_classes = [TokenAuthentication,SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # Get a single tweet with tweet id param
+    def get(self, request,format=None):
+
+        all_tweets = Tweet.objects.all()
+        all_tweet_list = []
+
+        for tweet in all_tweets:
+            tweet_informations = {
+                'tweet_id': tweet.id,
+                'tweet_text': tweet.tweet,
+                'tweet_user': tweet.user.username,
+                'tweet_date': str(tweet.date),
+            }
+            all_tweet_list.append(tweet_informations)
+
+        return HttpResponse(json.dumps(all_tweet_list), content_type='application/json')
+
+
+class ProfilePageView(APIView):
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # Get a single tweet with tweet id param
+    def get(self, request, format=None):
+        all_tweets = Tweet.objects.filter(user=request.user)
+        all_tweet_list = []
+
+        for tweet in all_tweets:
+            tweet_informations = {
+                'tweet_id': tweet.id,
+                'tweet_text': tweet.tweet,
+                'tweet_user': tweet.user.username,
+                'tweet_date': str(tweet.date),
+            }
+            all_tweet_list.append(tweet_informations)
+
+        return HttpResponse(json.dumps(all_tweet_list), content_type='application/json')
+
+
