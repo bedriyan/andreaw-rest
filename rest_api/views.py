@@ -43,15 +43,13 @@ class SingleTweetView(APIView):
 
     # Create a new tweet
     def post(self, request, format = None):
-        if request.POST.get('tweet'):
+        if request.POST.get('tweet_text'):
             new_tweet = Tweet()
             new_tweet.user = request.user
-            new_tweet.image = request.data.get('image_field')
-            new_tweet.text = request.POST.get('tweet')
+            new_tweet.text = request.POST.get('tweet_text')
             new_tweet.save()
 
             response = {'tweet_id': new_tweet.id,
-                        'tweet_image': new_tweet.image.name,
                         'tweet_text': new_tweet.tweet,
                         'status': 'Saved!'}
         else:
