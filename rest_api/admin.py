@@ -4,6 +4,6 @@ from .models import *
 
 
 class TweetAdmin(admin.ModelAdmin):
-    list_display = ("user","tweet","image","date")
+    list_display = ("user","tweet_text","image","date")
 
 admin.site.register(Tweet,TweetAdmin)

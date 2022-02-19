@@ -33,7 +33,7 @@ class SingleTweetView(APIView):
 
         listResponse = {
             'tweet_id': tweet.id,
-            'tweet_text': tweet.tweet,
+            'tweet_text': tweet.tweet_text,
             'tweet_user': tweet.user.username,
             'tweet_image': tweet_image,
             'tweet_date': str(tweet.date),
@@ -43,17 +43,19 @@ class SingleTweetView(APIView):
 
     # Create a new tweet
     def post(self, request, format = None):
-        if request.POST.get('tweet_text'):
+        data = json.loads(request.body)
+        print(data.get("tweet_text"))
+        if data.get('tweet_text'):
             new_tweet = Tweet()
             new_tweet.user = request.user
-            new_tweet.text = request.POST.get('tweet_text')
+            new_tweet.tweet_text = data.get('tweet_text')
             new_tweet.save()
 
             response = {'tweet_id': new_tweet.id,
-                        'tweet_text': new_tweet.tweet,
+                        'tweet_text': new_tweet.tweet_text,
                         'status': 'Saved!'}
         else:
-            response = {'error': 'image_field is empty!'}
+            response = {'error': 'tweet_text is empty!'}
 
         return Response(response, status=status.HTTP_201_CREATED)
 
@@ -85,7 +87,7 @@ class HomePageView(APIView):
         for tweet in all_tweets:
             tweet_informations = {
                 'tweet_id': tweet.id,
-                'tweet_text': tweet.tweet,
+                'tweet_text': tweet.tweet_text,
                 'tweet_user': tweet.user.username,
                 'tweet_date': str(tweet.date),
             }
@@ -106,7 +108,7 @@ class ProfilePageView(APIView):
         for tweet in all_tweets:
             tweet_informations = {
                 'tweet_id': tweet.id,
-                'tweet_text': tweet.tweet,
+                'tweet_text': tweet.tweet_text,
                 'tweet_user': tweet.user.username,
                 'tweet_date': str(tweet.date),
             }
