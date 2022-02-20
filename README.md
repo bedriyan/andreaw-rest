@@ -17,7 +17,7 @@ This API is currently running on a Heroku server # https://andrew-backend-django
   python3 -m venv venv
 ```
 
-4. Activating the Virtual Environment
+4. Activating the virtual environment
 
 ```
   source venv/bin/activate
@@ -41,6 +41,7 @@ This API is currently running on a Heroku server # https://andrew-backend-django
 ```
   python manage.py runserver
 ```
+
 
 
 
