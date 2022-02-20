@@ -1,6 +1,11 @@
-# andreaw-rest
+# Andreaw Rest 
 
 This API is currently running on a Heroku server # https://andrew-backend-django.herokuapp.com/ 
+
+API Documentation is available at https://documenter.getpostman.com/view/10807503/UVkjwxqk
+
+React Native Repo is available at https://documenter.getpostman.com/view/10807503/UVkjwxqk
+
 
 ### [Running the project at the local machine](#virtualenv)
 
