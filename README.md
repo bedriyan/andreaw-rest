@@ -1,41 +1,47 @@
 # andreaw-rest
 
-### [Proje için Python Sanal Ortamın (Virtual Environment) ve Bağımlılıkların Yüklenmesi](#virtualenv)
+This API is currently running on a Heroku server # https://andrew-backend-django.herokuapp.com/ 
 
-1. Python3 için pip güncellemesi ve `virtualenv` paketinin kurulması
+### [Running the project at the local machine](#virtualenv)
 
-```
-  sudo -H pip3 install --upgrade pip
-  sudo -H pip3 install virtualenv
-```
-
-**Not:** *"locale.Error: unsupported locale setting"* hatası için çözüm:
+1. Clone the repository
 
 ```
-  export LC_ALL="en_US.UTF-8"
+  git clone https://github.com/bedriyan/andreaw-rest
 ```
 
-2. Örnek bir Django projesi GitHub'dan kopyalanıyor.
+3. Changing to project directory and creating Virtual Python Environment named `venv`
 
 ```
-  git clone https://github.com/barissaslan/eventhub.git
+  cd andreaw-rest
+  python3 -m venv venv
 ```
 
-3. Proje dizinine geçme ve `venv` adlı Sanal Python Ortamının oluşturulması
-
-```
-  cd eventhub
-  virtualenv venv
-```
-
-4. Sanal Ortamın aktif edilmesi
+4. Activating the Virtual Environment
 
 ```
   source venv/bin/activate
 ```
 
-5. Proje bağımlılıklarının yüklenmesi
+5. Installing project dependencies
 
 ```
   pip install -r requirements.txt
 ```
+
+6. Migrating the database 
+
+```
+  python manage.py makemigrations
+  python manage.py migrate
+```
+
+7. Running the server
+
+```
+  python manage.py runserver
+```
+
+
+
+
